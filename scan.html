@@ -1,90 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escaneo Registrado</title>
-  <style>
-    body {
-      background-color: #0d0d0d;
-      color: #e6e6e6;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const punto = urlParams.get('punto');
+  const pin = urlParams.get('pin');
+  const fecha = new Date();
 
-    h2 {
-      font-size: 2rem;
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff;
-    }
-
-    #mensaje {
-      margin-top: 2rem;
-      font-size: 1.2rem;
-      color: #00e6e6;
-      text-shadow: 0 0 5px #00e6e6;
-    }
-
-    .boton-volver {
-      margin-top: 2rem;
-      padding: 0.7rem 1.5rem;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(145deg, #00e6e6, #0099cc);
-      color: white;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
-      transition: all 0.3s ease;
-    }
-
-    .boton-volver:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0, 255, 255, 0.6);
-    }
-
-    .check-icon {
-      font-size: 4rem;
-      color: #00ffcc;
-      text-shadow: 0 0 15px #00ffcc;
-      margin-top: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <h2>Escaneo Exitoso</h2>
-  <div class="check-icon">✔️</div>
-  <p id="mensaje">Procesando...</p>
-  <button class="boton-volver" id="siguienteBtn" style="display:none;">Escanear siguiente punto</button>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const punto = urlParams.get('punto');
-    const pin = urlParams.get('pin');
-    const fecha = new Date();
-
-    fetch("https://script.google.com/macros/s/TU_URL_SCRIPT/exec?" +
-          `punto=${punto}&pin=${pin}&fecha=${fecha.toISOString()}`)
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("mensaje").innerText = `Registro exitoso para el Punto ${punto}`;
-        document.getElementById("siguienteBtn").style.display = 'inline-block';
-      })
-      .catch(err => {
-        document.getElementById("mensaje").innerText = "Error al registrar el escaneo.";
-        console.error(err);
-      });
-
-    document.getElementById("siguienteBtn").addEventListener("click", () => {
-      window.location.href = `index.html?pin=${pin}`;
+  fetch("https://script.google.com/macros/s/AKfycbydz9JxnP7wTx_0xFTO1MSt9FrPTQ1vNMdG5uHKO4RM1BmnjuOa7_FWyZ8juDWAoSCUug/exec?" +
+        `punto=${punto}&pin=${pin}&fecha=${fecha.toISOString()}`)
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("mensaje").innerText = `Registro exitoso para el Punto ${punto}`;
+      document.getElementById("siguienteBtn").style.display = 'inline-block';
+    })
+    .catch(err => {
+      document.getElementById("mensaje").innerText = "Error al registrar el escaneo.";
+      console.error(err);
     });
-  </script>
-</body>
-</html>
+
+  document.getElementById("siguienteBtn").addEventListener("click", () => {
+    window.location.href = `index.html?pin=${pin}`;
+  });
+</script>
