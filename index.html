@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Vigilancia - Ingreso</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e6e6e6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    form {
+      background-color: #1a1a1a;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 300px;
+    }
+
+    label {
+      font-size: 1.1rem;
+    }
+
+    input[type="text"] {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #262626;
+      color: #ffffff;
+    }
+
+    button {
+      padding: 0.7rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #00e6e6, #0099cc);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 255, 255, 0.6);
+    }
+
+    .info {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #cccccc;
+      text-align: center;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Ingreso al Sistema de Rondas</h2>
+
+  <form action="scan.html" method="GET">
+    <label for="pin">Ingresa tu PIN de 4 dígitos:</label>
+    <input type="text" id="pin" name="pin" maxlength="4" pattern="\d{4}" required>
+    <button type="submit">Iniciar Ronda</button>
+  </form>
+
+  <div class="info">
+    <p>Este sistema está diseñado para registrar de manera automática el paso de cada vigilante por los puntos de control, mediante el escaneo de códigos QR. Forma parte del sistema de control para las rondas en el Conjunto Edén las Cascadas. Asegúrese de haber ingresado correctamente su PIN para garantizar un registro correcto.</p>
+  </div>
+</body>
+</html>
