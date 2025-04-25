@@ -84,7 +84,26 @@
     const scriptURL = 'https://script.google.com/macros/s/AKfycbw6bqfE3fkH8uTIhZ94a4vhSSGb-9anH30AOnywKbBl-Yj_phoAcPBArc39PHczkHn6vQ/exec';
 
     const form = document.getElementById('formulario');
-    form.action = scriptURL;
+    form.addEventListener('submit', function(e) {
+  const pin = form.querySelector('input[name="pin"]').value;
+  if (!pin) {
+    e.preventDefault();
+    alert("Debes ingresar tu PIN");
+    return;
+  }
+
+  e.preventDefault(); // evitamos el envío tradicional
+
+  const formData = new FormData(form);
+  fetch(scriptURL, { method: 'POST', body: formData })
+    .then(() => {
+      window.location.href = 'registro_exitoso.html';
+    })
+    .catch(err => {
+      alert("Ocurrió un error al registrar. Intenta nuevamente.");
+      console.error(err);
+    });
+});
 
     form.addEventListener('submit', function(e) {
       const pin = form.querySelector('input[name="pin"]').value;
