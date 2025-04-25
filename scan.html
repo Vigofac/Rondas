@@ -1,22 +1,100 @@
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const punto = urlParams.get('punto');
-  const pin = urlParams.get('pin');
-  const fecha = new Date();
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ingreso al Sistema de Rondas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e6e6e6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
 
-  fetch("https://script.google.com/macros/s/AKfycbydz9JxnP7wTx_0xFTO1MSt9FrPTQ1vNMdG5uHKO4RM1BmnjuOa7_FWyZ8juDWAoSCUug/exec?" +
-        `punto=${punto}&pin=${pin}&fecha=${fecha.toISOString()}`)
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("mensaje").innerText = `Registro exitoso para el Punto ${punto}`;
-      document.getElementById("siguienteBtn").style.display = 'inline-block';
-    })
-    .catch(err => {
-      document.getElementById("mensaje").innerText = "Error al registrar el escaneo.";
-      console.error(err);
+    h2 {
+      font-size: 2rem;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    form {
+      background-color: #1a1a1a;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00cccc;
+      margin-top: 2rem;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: none;
+      width: 200px;
+      margin-bottom: 1rem;
+    }
+
+    .boton {
+      background-color: #00ffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background-color: #00cccc;
+    }
+
+    p {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Ingreso al Sistema de Rondas</h2>
+
+  <form id="formulario" method="POST">
+    <label>Ingresa tu PIN de 4 dígitos:</label><br>
+    <input type="password" name="pin" maxlength="4" required><br>
+    <input type="hidden" name="punto" id="punto">
+    <button class="boton" type="submit">Iniciar Ronda</button>
+  </form>
+
+  <p>
+    Este sistema está diseñado para registrar automáticamente el paso de los vigilantes por los puntos de control del Conjunto Edén las Cascadas. 
+  </p>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const punto = urlParams.get('punto') || 'Sin punto';
+    document.getElementById('punto').value = `Punto ${punto}`;
+
+    // URL del Apps Script (reemplázala con la tuya real si no está puesta)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwXXX_TU_URL_DEL_DEPLOY/exec';
+
+    const form = document.getElementById('formulario');
+    form.action = scriptURL;
+
+    form.addEventListener('submit', function(e) {
+      const pin = form.querySelector('input[name="pin"]').value;
+      if (!pin) {
+        e.preventDefault();
+        alert("Debes ingresar tu PIN");
+      }
     });
+  </script>
 
-  document.getElementById("siguienteBtn").addEventListener("click", () => {
-    window.location.href = `index.html?pin=${pin}`;
-  });
-</script>
+</body>
+</html>
