@@ -73,7 +73,7 @@
   </form>
 
   <p>
-    Este sistema está diseñado para registrar automáticamente el paso de los vigilantes por los puntos de control del Conjunto Edén las Cascadas. 
+    Gracias por usar el sistema, cualquier duda por favor contactarnos en el mail <a href="mailto:Vigofac@gmail.com">Vigofac@gmail.com</a>.
   </p>
 
   <script>
@@ -85,25 +85,25 @@
 
     const form = document.getElementById('formulario');
     form.addEventListener('submit', function(e) {
-  const pin = form.querySelector('input[name="pin"]').value;
-  if (!pin) {
-    e.preventDefault();
-    alert("Debes ingresar tu PIN");
-    return;
-  }
+      const pin = form.querySelector('input[name="pin"]').value;
+      if (!pin) {
+        e.preventDefault();
+        alert("Debes ingresar tu PIN");
+        return;
+      }
 
-  e.preventDefault(); // evitamos el envío tradicional
+      e.preventDefault(); // evitamos el envío tradicional
 
-  const formData = new FormData(form);
-  fetch(scriptURL, { method: 'POST', body: formData })
-    .then(() => {
-      window.location.href = 'registro_exitoso.html';
-    })
-    .catch(err => {
-      alert("Ocurrió un error al registrar. Intenta nuevamente.");
-      console.error(err);
+      const formData = new FormData(form);
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(() => {
+          window.location.href = 'registro_exitoso.html';
+        })
+        .catch(err => {
+          alert("Ocurrió un error al registrar. Intenta nuevamente.");
+          console.error(err);
+        });
     });
-});
 
     form.addEventListener('submit', function(e) {
       const pin = form.querySelector('input[name="pin"]').value;
